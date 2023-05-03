@@ -2,7 +2,6 @@ import { useState, SyntheticEvent, useContext } from "react";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import { Badge, Box, IconButton, Typography } from "@mui/material";
-
 import { Home, Favorite } from "@mui/icons-material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { CartContext } from "../context/CartContextProvider";

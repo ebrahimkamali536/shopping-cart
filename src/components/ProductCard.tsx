@@ -1,6 +1,16 @@
 import { useContext } from "react";
-import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
-
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { isInCart, quantityCount, titleShortener } from "../utils/function";
 
 import { CartContext } from "../context/CartContextProvider";
@@ -16,20 +26,20 @@ const ProductCard = ({ product }: IProps) => {
   return (
     <Card sx={{ borderRadius: "12px" }}>
       <CardMedia
-        sx={{ padding: "12px" }}
+        sx={{ padding: "10px" }}
         component="img"
         height="194"
         image={product.image}
         alt="Paella dish"
       />
-
       <CardContent>
-        <Link to={`/product/${product.id}`}>
+        <Link style={{textDecoration: "none", color: "#020202"}} to={`/product/${product.id}`}>
           <Typography
             gutterBottom
-            variant="subtitle1"
-            component="div"
+            variant="h6"
+            component="h3"
             fontWeight="medium"
+            textAlign="center"
           >
             {titleShortener(product.title)}
           </Typography>
@@ -39,6 +49,7 @@ const ProductCard = ({ product }: IProps) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            marginBottom: '8px'
           }}
         >
           <Typography
@@ -49,35 +60,54 @@ const ProductCard = ({ product }: IProps) => {
             {product.price} $
           </Typography>
         </Box>
-        {quantityCount(cart, product.id) === 1 ? (
-          <button
-            onClick={() => dispatch({ type: "REMOVE", payload: product })}
-          >
-            remove
-          </button>
-        ) : (
-          quantityCount(cart, product.id) > 1 && (
-            <button
-              onClick={() => dispatch({ type: "DECREASE", payload: product })}
+        <Box sx={{ display: "flex", alignItems: "center", gap: "0 10px" }}>
+          {quantityCount(cart, product.id) === 1 ? (
+            <Button
+              variant="contained"
+              color="error"
+              sx={{ flex: "1" }}
+              onClick={() => dispatch({ type: "REMOVE", payload: product })}
             >
-              mines
-            </button>
-          )
-        )}
+              <DeleteIcon />
+              Remove
+            </Button>
+          ) : (
+            quantityCount(cart, product.id) > 1 && (
+              <Button
+                variant="contained"
+                color="warning"
+                sx={{ flex: "1" }}
+                onClick={() => dispatch({ type: "DECREASE", payload: product })}
+              >
+                <RemoveIcon />
+                Minus
+              </Button>
+            )
+          )}
 
-        {isInCart(cart, product.id) ? (
-          <button
-            onClick={() => dispatch({ type: "INCREASE", payload: product })}
-          >
-            +
-          </button>
-        ) : (
-          <button
-            onClick={() => dispatch({ type: "ADD_TO_CART", payload: product })}
-          >
-            add to cart
-          </button>
-        )}
+          {isInCart(cart, product.id) ? (
+            <Button
+              variant="contained"
+              color="success"
+              sx={{ flex: "1" }}
+              onClick={() => dispatch({ type: "INCREASE", payload: product })}
+            >
+              <AddIcon />
+              Plus
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              sx={{ width: "100%", flex: "1" }}
+              onClick={() =>
+                dispatch({ type: "ADD_TO_CART", payload: product })
+              }
+            >
+              <AddShoppingCartIcon />
+              add to cart
+            </Button>
+          )}
+        </Box>
       </CardContent>
     </Card>
   );
