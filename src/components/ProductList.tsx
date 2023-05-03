@@ -4,11 +4,13 @@ import { useContext } from "react";
 import { ProductsContext } from "../context/ProductsContextProvider";
 
 const ProductList = () => {
-  const {products, loading} = useContext(ProductsContext);
-  if(loading) return null
+  const data = useContext(ProductsContext)
+
+  if(data?.loading) return null
+
   return (
     <Grid mt={8} mb={8} container spacing={2} padding={2}>
-      {products?.map((product) => (
+      {data?.products?.map((product) => (
         <Grid item key={product.id} xs={6}>
           <ProductCard product={product} />
         </Grid>

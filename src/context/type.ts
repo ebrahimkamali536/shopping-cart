@@ -1,5 +1,7 @@
 import { IProduct } from "../interface/type";
 
-export interface CartContextType {
-    products: IProduct[]
-}
+export interface ProductsContextType {
+    products: IProduct[] | [],
+    loading: boolean,
+    error: string
+  }

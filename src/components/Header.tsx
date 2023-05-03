@@ -7,7 +7,7 @@ import { Home, Favorite } from "@mui/icons-material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { CartContext } from "../context/CartContextProvider";
 import { totalProductCount } from "../utils/function";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const { cart } = useContext(CartContext);
@@ -30,6 +30,7 @@ const Header = () => {
   ];
 
   const { pathname } = useLocation();
+  const navigate = useNavigate()
   const [value, setValue] = useState(pathname);
 
   const handleChange = (event: SyntheticEvent, newValue: string) => {
@@ -57,18 +58,17 @@ const Header = () => {
         }}
         value={value}
         onChange={handleChange}
-        showLabels
       >
         {routes.map((route, index) => (
-          <Link to={route.path} key={index}>
-            <BottomNavigationAction
-              label={route.name}
-              icon={route.icon}
-              style={{
-                color: pathname === route.path ? "#1976d2" : "",
-              }}
-            />
-          </Link>
+          <BottomNavigationAction
+          key={index}
+          onClick={() => navigate(route.path)}
+            label={route.name}
+            icon={route.icon}
+            style={{
+              color: pathname === route.path ? "#1976d2" : "",
+            }}
+          />
         ))}
       </BottomNavigation>
     </>

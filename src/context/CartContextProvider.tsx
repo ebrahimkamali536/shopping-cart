@@ -1,12 +1,13 @@
 import { ReactNode, createContext, useEffect, useReducer } from "react";
-import { ICart, IProduct } from "../interface/type";
+import {IProduct } from "../interface/type";
 
 interface IProps {
   children: ReactNode;
 }
 
+
 interface IInitialState {
-  products: IProduct[];
+  products: IProduct[] | [];
   totalCount: number;
   totalPrice: number;
   clear: boolean;
@@ -18,7 +19,7 @@ interface IInitialAction {
   payload: IProduct;
 }
 
-const initialState: ICart = {
+const initialState: IInitialState = {
   products: [],
   totalPrice: 0,
   totalCount: 0,
@@ -35,7 +36,7 @@ export const CartContext = createContext<{
 });
 
 const CartContextProvider = ({ children }: IProps) => {
-  const savedData: any = localStorage.getItem("cart");
+  const savedData = localStorage.getItem("cart");
   const parsedData = savedData ? JSON.parse(savedData) : null;
 
   const reducer = (state: IInitialState, action: IInitialAction) => {

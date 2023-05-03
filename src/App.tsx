@@ -6,6 +6,7 @@ import Cart from "./pages/Cart";
 import Favorite from "./pages/Favorite";
 import ProductsContextProvider from "./context/ProductsContextProvider";
 const App = () => {
+  
   return (
     <ProductsContextProvider>
       <CartContextProvider>

@@ -1,21 +1,32 @@
 import axios from "axios";
-import React, { createContext, useState, useEffect, ReactNode, ReactElement } from "react";
+import {
+  createContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
+import { ProductsContextType } from "./type";
 
-export const ProductsContext = createContext<any>(null);
+
+export const ProductsContext = createContext<ProductsContextType | null>(null);
 
 interface IProps {
   children: ReactNode;
 }
-const ProductsContextProvider = ({ children }:IProps) => {
-  const [state, setState] = useState({
+
+const ProductsContextProvider = ({ children }: IProps) => {
+  const [state, setState] = useState<ProductsContextType>({
     products: [],
     loading: false,
     error: "",
   });
+
   useEffect(() => {
     const fetchProducts = async () => {
       setState((prevState) => ({ ...prevState, loading: true }));
-      const { data } = await axios.get(`${process.env.BASE_URL_API}/products/`);
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_BASE_URL_API}/products/`
+      );
       setState((prevState) => ({
         ...prevState,
         loading: false,
