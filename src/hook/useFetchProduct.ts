@@ -19,7 +19,7 @@ export const useFetchProduct = (id:string) => {
     const fetchData = async () => {
       setState((prevState) => ({ ...prevState, loading: true }));
 
-      const { data } = await axios(`https://fakestoreapi.com/products/${id}`);
+      const { data } = await axios(`${process.env.BASE_URL_API}/products/${id}`);
 
       setState((prevState) => ({
         ...prevState,

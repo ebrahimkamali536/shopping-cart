@@ -15,7 +15,7 @@ const ProductsContextProvider = ({ children }:IProps) => {
   useEffect(() => {
     const fetchProducts = async () => {
       setState((prevState) => ({ ...prevState, loading: true }));
-      const { data } = await axios.get("https://fakestoreapi.com/products/");
+      const { data } = await axios.get(`${process.env.BASE_URL_API}/products/`);
       setState((prevState) => ({
         ...prevState,
         loading: false,
